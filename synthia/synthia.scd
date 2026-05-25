@@ -170,14 +170,22 @@ SinOsc.ar(freq2,phase:phasey)),freq2*heavy,amp2),mix,1);
 sig3=FreeVerb.ar(LPF.ar((Osc.ar(~wt.bufnum,freq3,phase:phasez,mul:1000).abs*
 SinOsc.ar(freq3,phase:phasez)),freq3*heavy,amp3),mix,1);
 
-a1=(1/4).rand2;a2=(1/4).rand2;a3=(1/4).rand2;a4=(1/4).rand2;
+/*a1=(1/4).rand2;a2=(1/4).rand2;a3=(1/4).rand2;a4=(1/4).rand2;
 a5=(1/4).rand2;a6=(1/4).rand2;a7=(1/4).rand2;a8=(1/4).rand2;
 a9=(1/4).rand2;a10=(1/4).rand2;a11=(1/4).rand2;a12=(1/4).rand2;
 a13=(1/4).rand2;a14=(1/4).rand2;a15=(1/4).rand2;a16=(1/4).rand2;
 a17=(1/4).rand2;a18=(1/4).rand2;a19=(1/4).rand2;a20=(1/4).rand2;
 a21=(1/4).rand2;a22=(1/4).rand2;a23=(1/4).rand2;a24=(1/4).rand2;
 a25=(1/4).rand2;a26=(1/4).rand2;a27=(1/4).rand2;a28=(1/4).rand2;
-a29=(1/4).rand2;a30=(1/4).rand2;a31=(1/4).rand2;
+a29=(1/4).rand2;a30=(1/4).rand2;a31=(1/4).rand2;*/
+a1=a2=a3=a4=(1/4).rand2;
+a5=a6=a7=a8=(1/4).rand2;
+a9=a10=a11=a12=(1/4).rand2;
+a13=a14=a15=a16=(1/4).rand2;
+a17=a18=a19=a20=(1/4).rand2;
+a21=a22=a23=a24=(1/4).rand2;
+a25=a26=a27=a28=(1/4).rand2;
+a29=a30=a31=(1/4).rand2;
 
 g_ch1 = (
 (Spherical(sig1.abs.range(0.001,1),(polytope.theta),(polytope.phi)).x *
