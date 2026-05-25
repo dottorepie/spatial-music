@@ -1,24 +1,25 @@
 
 (
 (
-s.options.numWireBufs = 1024*2;
-s.options.numOutputBusChannels=31;
-s.options.numInputBusChannels=0;
-s.options.memSize = 8192*256;
-s.options.blockSize = 64;
-s.options.maxNodes = 8192*2;
+~srv = ~srv = Server(\server1, NetAddr("127.0.0.1", 57111));
+~srv.options.numWireBufs = 1024*32;
+~srv.options.numOutputBusChannels=31;
+~srv.options.numInputBusChannels=0;
+~srv.options.memSize = 8192*256;
+~srv.options.blockSize = 64;
+~srv.options.maxNodes = 8192*2;
 Quarks.install("MathLib");
 Buffer.freeAll;
 Window.closeAll;
-s.makeGui(w);
-s.meter;
-s.freqscope;
-s.scope;
+~srv.makeGui(w);
+~srv.meter;
+~srv.freqscope;
+~srv.scope;
 );
 ~img_print = Image.open("/Users/amimid/Documents/Literary/Portfolio/SUPERCOLLIDER/2026/synthia/image1.jpg");///////////////paste image image1.jpg
-s.waitForBoot{
+~srv.waitForBoot{
 Tdef(\drone, {
-//~controlBus = Bus.control(s, 1);
+//~controlBus = Bus.control(~srv, 1);
 
 ////////////////////////////////////////////////////////////////////////////////////////// wavetable, scales, space,timbre///////////////////////////////////////cuboctahedron
 (
@@ -83,7 +84,7 @@ n=n+1;
 ~signalSize = 2048*8;
 );
 (
-~wt= Buffer.alloc(s,~bufferSize);
+~wt= Buffer.alloc(~srv,~bufferSize);
 {
 var signal,wt;
 signal=Signal.sineFill(~signalSize,~array,~ph);
@@ -486,7 +487,7 @@ Out.ar(26,sig3*env*g_ch27);Out.ar(27,sig3*env*g_ch28);
 Out.ar(28,sig3*env*g_ch29);Out.ar(29,sig3*env*g_ch30);Out.ar(30,sig3*env*g_ch31);
 )
 
-}).add;
+}).send(~srv);
 );
 1.wait;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////sequencer,pattern
@@ -533,8 +534,8 @@ bank.do{ ~dur3=~dur3++~dz.[n];n=n+1;};n=0;
 TempoClock.default.tempo_(0.01);
 
 ~pattern = Pdef(\1,
-Pbind(\instrument, \synth,\dur, ~seq,\gain,
-Pfunc { ~gain }, \sc, Pfunc { ~sc },\drive, Pfunc { ~drive },
+Pbind(\server, ~srv,\instrument, \synth,\dur, ~seq,\gain,
+Pfunc { ~gain }, \sc, Pfunc { ~ssc },\drive, Pfunc { ~drive },
 \c, Pfunc { ~c },\mix, Pfunc{~mix},
 \az, Pseries(0, Pfunc{~incr1}, inf).collect(_.wrap(pi.neg, pi)).asStream,
 \el, Pseries(0, Pfunc{~incr2}, inf).collect(_.wrap(0.5pi.neg, 0.5pi)).asStream,
