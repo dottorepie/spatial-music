@@ -36,7 +36,12 @@ Then:
 SynthDef.new(\oa, {
 	arg rotation1 = 1, rotation2 = 1, rotation3 = 1, rotation4 = 1, rotation5 = 1, rotation6 = 1, rotation7 = 1, rotation8 = 1, n=1, cutt = 496;
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
-
+var wrappedOut = { |busArray, signalArray|
+	// magic trick to expand to the larger of the two arrays
+	[busArray, signalArray].flop.do { |pair|
+		Out.ar(pair[0], pair[1])
+	}
+};
 //	... the rest as is, until...
 
 		wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
